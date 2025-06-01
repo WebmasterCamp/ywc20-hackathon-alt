@@ -3,5 +3,8 @@
 
 	let { children } = $props();
 </script>
+<head>
+	<title>DooDaw | ดูดาว</title>
+</head>
 
 {@render children()}

@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-
+  import Navbar from '../components/navbar.svelte';
   /**
 	 * @type {import("leaflet").Map | import("leaflet").LayerGroup<any>}
 	 */
@@ -43,12 +43,12 @@
 
 <style>
   #map {
-    height: 500px;
-    width: 100%;
+    height: 25vh;
+    width: 80vh;
   }
 </style>
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<div id="map"></div>
+<div  id="map"></div>

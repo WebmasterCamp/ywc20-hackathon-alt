@@ -14,6 +14,7 @@
 		"lint": "prettier --check ."
 	},
 	"devDependencies": {
+		"@magidoc/plugin-svelte-marked": "^6.2.0",
 		"@prisma/client": "^5.14.0",
 		"@sveltejs/adapter-auto": "^6.0.0",
 		"@sveltejs/kit": "^2.16.0",
@@ -23,7 +24,11 @@
 		"@types/bcrypt": "^5.0.2",
 		"@types/jsonwebtoken": "^9.0.9",
 		"@types/leaflet": "^1.9.18",
+		"flowbite": "^3.1.2",
+		"flowbite-svelte": "^1.5.1",
+		"flowbite-svelte-icons": "^2.2.0",
 		"i": "^0.3.7",
+		"marked": "^15.0.12",
 		"pnpm": "^10.11.0",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
