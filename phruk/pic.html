@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ชื่อหัวข้อสถานนี่</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: white;
+            line-height: 1.6;
+        }
+
+        /* Sticky Header */
+        .header {
+            background-color: #1a1a1a;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .logo-icon {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .login-btn {
+            background-color: #4a90e2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #357abd;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 2rem;
+            font-size: 14px;
+        }
+
+        .carousel-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            width: 33.333%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .prev-btn {
+            left: 15px;
+        }
+
+        .next-btn {
+            right: 15px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            z-index: 20;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: white;
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .thumbnail {
+            width: 120px;
+            height: 80px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0.7;
+        }
+
+        .thumbnail:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .thumbnail.active {
+            opacity: 1;
+            border: 2px solid white;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .carousel {
+                height: 250px;
+            }
+
+            .nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .thumbnail {
+                width: 80px;
+                height: 60px;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span>ไลก์</span>
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#">ดื่มนม</a></li>
+                <li><a href="#">ดื่มนม</a></li>
+                <li><a href="#">ดื่มนม</a></li>
+                <li><a href="#">ดื่มนม</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="login-btn">ลงทะเบียน/เข้าสู่ระบบ</a>
+    </header>
+
+    <main class="container">
+        <h1 class="title">ชื่อหัวข้อสถานนี่</h1>
+        <p class="subtitle">รายละเอียดเพิ่มเติม</p>
+
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=400&fit=crop" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&h=400&fit=crop" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop" />
+                    </div>
+                </div>
+
+                <button class="nav-btn prev-btn" onclick="previousSlide()">‹</button>
+                <button class="nav-btn next-btn" onclick="nextSlide()">›</button>
+
+                <div class="carousel-indicators" id="indicators">
+                    <span class="indicator active" onclick="goToSlide(0)"></span>
+                    <span class="indicator" onclick="goToSlide(1)"></span>
+                    <span class="indicator" onclick="goToSlide(2)"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="thumbnail-gallery">
+            <div class="thumbnail active" onclick="goToSlide(0)">
+                <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=120&h=80&fit=crop" />
+            </div>
+            <div class="thumbnail" onclick="goToSlide(1)">
+                <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=120&h=80&fit=crop" />
+            </div>
+            <div class="thumbnail" onclick="goToSlide(2)">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=120&h=80&fit=crop" />
+            </div>
+        </div>
+
+        <div class="content">
+            <p>หากคุณกำลังมองหาสถานที่ที่ให้ผลิตภัณฑ์ความงามอย่าง พร้อมกับประสบการณ์ที่ไม่เหมือนใคร สถานที่ดูดาวแห่งนี้คือคำตอบที่สมบูรณ์แบบ ที่นี่คลาสพิเศษเฉพาะบุคคลให้เลือกเมื่อมาเยือน</p>
+            
+            <p>กลางคืนที่นี้จะมองเห็นดาวความงามที่ครอบคลุมอีกระบบเนื่องจะคุณสองจากเดินทีมที่อยู่ด้วยสิ่งใด บนพื้นที่ประมาณ 50 ตารางเมตร ซึ่งมีอุปกรณ์ที่ทันสมัยและมีคุณภาพสูงเพื่อให้ประสบการณ์ที่ดีที่สุด</p>
+            
+            <p>จากเดิม มีการจัดจองหลังจากที่ได้รับการยืนยันจากทีมงานรักษาความปลอดภัยที่มีอยู่ในเวลา</p>
+            
+            <p>ทุกช่วงเวลาของการแบบเฉพาะใดให้ใหม่ในใจอันอบอุ่นระบบและอีกระบบอย่างหลากหลาย จึงเป็นของสถานที่ที่ไม่ใช่ให้ทำความเข้าใจ แต่ยังจะมองไปยังความเป็นมิตรอีกด้วย ความเชื่อมั่น และการพบเจอสิ่งที่ไม่คาดคิดมาก่อนในสถานที่แห่งนี้</p>
+            
+            <p>หรือยังคิดที่จองหาอะไรเพิ่มเติมในสถานที่นี้สถานที่</p>
+        </div>
+    </main>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 3;
+        const track = document.getElementById('carouselTrack');
+        const indicators = document.querySelectorAll('.indicator');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+
+        function updateCarousel() {
+            const translateX = -currentSlide * (100 / totalSlides);
+            track.style.transform = `translateX(${translateX}%)`;
+            indicators.forEach((el, i) => el.classList.toggle('active', i === currentSlide));
+            thumbnails.forEach((el, i) => el.classList.toggle('active', i === currentSlide));
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        setInterval(nextSlide, 5000);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') previousSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        let startX = 0;
+        let endX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        track.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50) nextSlide();
+            if (endX - startX > 50) previousSlide();
+        });
+    </script>
+</body>
+
+</html>

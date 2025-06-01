@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Alert Dialog</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .alert-dialog {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .alert-button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .alert-button.primary {
+            background-color: #5B9BD5;
+            color: white;
+        }
+
+        .alert-button.primary:hover {
+            background-color: #4A8BC2;
+        }
+
+        .alert-button.secondary {
+            background-color: #666;
+            color: white;
+        }
+
+        .alert-button.secondary:hover {
+            background-color: #555;
+        }
+
+        .alert-skip {
+            color: #666;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .alert-skip:hover {
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .demo-button {
+            background-color: #5B9BD5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px;
+        }
+
+        .demo-button:hover {
+            background-color: #4A8BC2;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Demo button to show alert -->
+    <button class="demo-button" onclick="showAlert()">แสดง Alert</button>
+
+    <!-- Alert Dialog -->
+    <div id="alertOverlay" class="alert-overlay hidden">
+        <div class="alert-dialog">
+            <div class="alert-title">
+                คำถามแบบคุณสถานที่ถูกดาวก์สันโจอยู่แล้วมย
+            </div>
+
+            <div class="alert-buttons">
+                <button class="alert-button secondary" onclick="hideAlert()">ปิด</button>
+                <button class="alert-button primary" onclick="hideAlert()">ไปมี</button>
+            </div>
+
+            <button class="alert-skip" onclick="hideAlert()">ข้าม</button>
+        </div>
+    </div>
+
+    <script>
+        function showAlert() {
+            document.getElementById('alertOverlay').classList.remove('hidden');
+        }
+
+        function hideAlert() {
+            document.getElementById('alertOverlay').classList.add('hidden');
+        }
+
+        // Close alert when clicking outside the dialog
+        document.getElementById('alertOverlay').addEventListener('click', function (e) {
+            if (e.target === this) {
+                hideAlert();
+            }
+        });
+
+        // Close alert with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                hideAlert();
+            }
+        });
+
+        // Show alert automatically when page loads
+        window.addEventListener('load', function () {
+            showAlert();
+        });
+    </script>
+</body>
+
+</html>
