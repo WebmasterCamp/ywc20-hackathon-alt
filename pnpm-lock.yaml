@@ -87,9 +87,6 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.6.11
         version: 0.6.12(prettier-plugin-svelte@3.4.0(prettier@3.5.3)(svelte@5.33.11))(prettier@3.5.3)
-      prisma:
-        specifier: ^5.14.0
-        version: 5.14.0
       svelte:
         specifier: ^5.0.0
         version: 5.33.11
@@ -1477,9 +1474,11 @@ snapshots:
     optionalDependencies:
       prisma: 5.14.0
 
-  '@prisma/debug@5.14.0': {}
+  '@prisma/debug@5.14.0':
+    optional: true
 
-  '@prisma/engines-version@5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48': {}
+  '@prisma/engines-version@5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48':
+    optional: true
 
   '@prisma/engines@5.14.0':
     dependencies:
@@ -1487,16 +1486,19 @@ snapshots:
       '@prisma/engines-version': 5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
       '@prisma/fetch-engine': 5.14.0
       '@prisma/get-platform': 5.14.0
+    optional: true
 
   '@prisma/fetch-engine@5.14.0':
     dependencies:
       '@prisma/debug': 5.14.0
       '@prisma/engines-version': 5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
       '@prisma/get-platform': 5.14.0
+    optional: true
 
   '@prisma/get-platform@5.14.0':
     dependencies:
       '@prisma/debug': 5.14.0
+    optional: true
 
   '@rollup/plugin-node-resolve@15.3.1(rollup@4.41.1)':
     dependencies:
@@ -2144,6 +2146,7 @@ snapshots:
   prisma@5.14.0:
     dependencies:
       '@prisma/engines': 5.14.0
+    optional: true
 
   readdirp@4.1.2: {}
 
