@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>สร้างบัญชี</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="icon" type="image/x-icon" href="img/users.png"/>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #252432;
+            padding: 20px;
+        }
+
+        @property --a {
+            syntax: "<angle>";
+            inherits: false;
+            initial-value: 0deg;
+        }
+
+        .box {
+            position: relative;
+            width: 400px;
+            padding: 20px;
+            background: repeating-conic-gradient(from var(--a),
+                    #ff2770 0%,
+                    #ff2770 5%,
+                    transparent 5%,
+                    transparent 40%,
+                    #ff2770 50%);
+            filter: drop-shadow(0 15px 50px #000);
+            animation: rotating 4s linear infinite;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        @keyframes rotating {
+            0% {
+                --a: 0deg;
+            }
+
+            100% {
+                --a: 360deg;
+            }
+        }
+
+        .box::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-conic-gradient(from var(--a),
+                    #45f3ff 0%,
+                    #45f3ff 5%,
+                    transparent 5%,
+                    transparent 40%,
+                    #45f3ff 50%);
+            filter: drop-shadow(0 15px 50px #000);
+            border-radius: 20px;
+            animation: rotating 4s linear infinite;
+            animation-delay: -1s;
+            z-index: 0;
+        }
+
+        .box::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            background: #2d2d39;
+            border-radius: 15px;
+            border: 8px solid #25252b;
+            z-index: 0;
+        }
+
+        .login {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 1;
+            box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            width: 90%;
+            max-width: 350px;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .loginBx {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .loginBx h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 10px;
+        }
+
+        .loginBx h2 i {
+            color: #ff2770;
+            text-shadow: 0 0 5px #ff2770, 0 0 30px #ff2770;
+            margin-right: 8px;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .loginBx input {
+            width: 100%;
+            padding: 12px 45px 12px 25px;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.15);
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        .loginBx input::placeholder {
+            color: #bbb;
+            font-weight: 300;
+        }
+
+        .loginBx input:focus {
+            border-color: #45f3ff;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 8px #45f3ff;
+        }
+
+        .loginBx input[type="submit"] {
+            background: #45f3ff;
+            border: none;
+            font-weight: 600;
+            color: #111;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(69, 243, 255, 0.6);
+            padding: 12px 0;
+        }
+
+        .loginBx input[type="submit"]:hover {
+            box-shadow: 0 0 20px #45f3ff, 0 0 60px #45f3ff;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .box {
+                width: 90vw;
+                padding: 30px 0;
+            }
+
+            .login {
+                padding: 30px 20px;
+            }
+
+            .loginBx h2 {
+                font-size: 1.5rem;
+                letter-spacing: 0.15em;
+            }
+
+            .loginBx input {
+                padding: 10px 45px 10px 15px;
+                font-size: 1rem;
+                border-radius: 20px;
+            }
+
+            .loginBx input[type="submit"] {
+                font-size: 1.1rem;
+                padding: 12px 0;
+                border-radius: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="login">
+            <form class="loginBx">
+                <h2><i class="fas fa-user-plus"></i>สร้างบัญชี</h2>
+                <input type="email" placeholder="อีเมล" required />
+                <div class="input-group">
+                    <input id="password" type="password" placeholder="รหัสผ่าน" required />
+                    <i id="togglePassword" class="fas fa-eye toggle-password" title="แสดง/ซ่อนรหัสผ่าน"></i>
+                </div>
+                <div class="input-group">
+                    <input id="confirmPassword" type="password" placeholder="ยืนยันรหัสผ่าน" required />
+                    <i id="toggleConfirmPassword" class="fas fa-eye toggle-password" title="แสดง/ซ่อนรหัสผ่าน"></i>
+                </div>
+                <input type="submit" value="สร้างบัญชี" />
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility(toggleId, inputId) {
+            const toggle = document.getElementById(toggleId);
+            const input = document.getElementById(inputId);
+
+            toggle.addEventListener("click", () => {
+                const type = input.getAttribute("type") === "password" ? "text" : "password";
+                input.setAttribute("type", type);
+                toggle.classList.toggle("fa-eye");
+                toggle.classList.toggle("fa-eye-slash");
+            });
+        }
+
+        togglePasswordVisibility("togglePassword", "password");
+        togglePasswordVisibility("toggleConfirmPassword", "confirmPassword");
+    </script>
+</body>
+
+</html>
