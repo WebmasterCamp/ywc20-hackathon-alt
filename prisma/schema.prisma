@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int     @id @default(autoincrement())
+  Firstname   String
+  Lastname    String
+  username    String  @unique
+  email       String  @unique
+  hashedpass  String
+  description String?
+  isbanned    Boolean @default(false)
+
+  categories Category[] @relation("UserCategories")
+  posts      Post[]     @relation("UserPosts")
+  logs       Log[]      @relation("UserLogs")
+  reviews    Review[]
+  sessions   Session[]
+  keys       Key[]
+}
+
+model Category {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  description  String?
+  app_read     Boolean  @default(false)
+  app_write    Boolean  @default(false)
+  creationdate DateTime @default(now())
+  isdisable    Boolean  @default(false)
+  ishidden     Boolean  @default(false)
+  totaltopics  Int      @default(0)
+  createby     Int
+  creator      User     @relation("UserCategories", fields: [createby], references: [id])
+  Post         Post[]
+}
+
+model Post {
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String?
+  createby      Int
+  creation_date DateTime @default(now())
+  last_edited   DateTime
+  app_read      Boolean  @default(false)
+  app_write     Boolean  @default(false)
+  isdisable     Boolean  @default(false)
+  ishidden      Boolean  @default(false)
+  maplocation   String?
+  categoryId    Int
+
+  author   User     @relation("UserPosts", fields: [createby], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  reviews  Review[]
+}
+
+model Review {
+  id          Int    @id @default(autoincrement())
+  userid      Int
+  topicid     Int
+  title       String
+  description String
+
+  user User @relation(fields: [userid], references: [id])
+  post Post @relation(fields: [topicid], references: [id])
+}
+
+model Log {
+  id     Int      @id @default(autoincrement())
+  action String
+  who    Int
+  ondate DateTime @default(now())
+
+  user User @relation("UserLogs", fields: [who], references: [id])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    Int
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Key {
+  id             String  @id
+  userId         Int
+  hashedPassword String?
+  user           User    @relation(fields: [userId], references: [id])
+}
+
+model Stargazing {
+  id    Int    @id
+  title String
+  description String?
+  lat   Float
+  long  Float
+
+}
