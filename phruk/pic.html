@@ -2,8 +2,8 @@
 <html lang="th">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ชื่อหัวข้อสถานนี่</title>
     <style>
         * {
@@ -19,7 +19,7 @@
             line-height: 1.6;
         }
 
-        /* Header */
+        /* Sticky Header */
         .header {
             background-color: #1a1a1a;
             padding: 1rem 2rem;
@@ -27,6 +27,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
@@ -78,7 +81,6 @@
             background-color: #357abd;
         }
 
-        /* Main Content */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -97,7 +99,6 @@
             font-size: 14px;
         }
 
-        /* Carousel Container */
         .carousel-container {
             position: relative;
             margin-bottom: 1rem;
@@ -131,7 +132,6 @@
             object-fit: cover;
         }
 
-        /* Navigation Buttons */
         .nav-btn {
             position: absolute;
             top: 50%;
@@ -163,7 +163,6 @@
             right: 15px;
         }
 
-        /* Indicators */
         .carousel-indicators {
             display: flex;
             justify-content: center;
@@ -188,7 +187,6 @@
             background-color: white;
         }
 
-        /* Thumbnail Gallery */
         .thumbnail-gallery {
             display: flex;
             gap: 0.5rem;
@@ -222,7 +220,6 @@
             object-fit: cover;
         }
 
-        /* Content */
         .content {
             color: #ccc;
             font-size: 14px;
@@ -233,7 +230,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -298,16 +294,13 @@
             <div class="carousel">
                 <div class="carousel-track" id="carouselTrack">
                     <div class="carousel-slide">
-                        <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=400&fit=crop"
-                            alt="Observatory at night with starry sky">
+                        <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=400&fit=crop" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&h=400&fit=crop"
-                            alt="Telescope dome with sunset">
+                        <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&h=400&fit=crop" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop"
-                            alt="Night sky with observatory">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop" />
                     </div>
                 </div>
 
@@ -324,32 +317,25 @@
 
         <div class="thumbnail-gallery">
             <div class="thumbnail active" onclick="goToSlide(0)">
-                <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=120&h=80&fit=crop"
-                    alt="Observatory thumbnail">
+                <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=120&h=80&fit=crop" />
             </div>
             <div class="thumbnail" onclick="goToSlide(1)">
-                <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=120&h=80&fit=crop"
-                    alt="Telescope thumbnail">
+                <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=120&h=80&fit=crop" />
             </div>
             <div class="thumbnail" onclick="goToSlide(2)">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=120&h=80&fit=crop"
-                    alt="Night sky thumbnail">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=120&h=80&fit=crop" />
             </div>
         </div>
 
         <div class="content">
-            <p>หากคุณกำลังมองหาสถานที่ที่ให้ผลิตภัณฑ์ความงามอย่าง พร้อมกับประสบการณ์ที่ไม่เหมือนใคร
-                สถานที่ดูดาวแห่งนี้คือคำตอบที่สมบูรณ์แบบ ที่นี่คลาสพิเศษเฉพาะบุคคลให้เลือกเมื่อมาเยือน</p>
-
-            <p>กลางคืนที่นี้จะมองเห็นดาวความงามที่ครอบคลุมอีกระบบเนื่องจะคุณสองจากเดินทีมที่อยู่ด้วยสิ่งใด
-                บนพื้นที่ประมาณ 50 ตารางเมตร ซึ่งมีอุปกรณ์ที่ทันสมัยและมีคุณภาพสูงเพื่อให้ประสบการณ์ที่ดีที่สุด</p>
-
+            <p>หากคุณกำลังมองหาสถานที่ที่ให้ผลิตภัณฑ์ความงามอย่าง พร้อมกับประสบการณ์ที่ไม่เหมือนใคร สถานที่ดูดาวแห่งนี้คือคำตอบที่สมบูรณ์แบบ ที่นี่คลาสพิเศษเฉพาะบุคคลให้เลือกเมื่อมาเยือน</p>
+            
+            <p>กลางคืนที่นี้จะมองเห็นดาวความงามที่ครอบคลุมอีกระบบเนื่องจะคุณสองจากเดินทีมที่อยู่ด้วยสิ่งใด บนพื้นที่ประมาณ 50 ตารางเมตร ซึ่งมีอุปกรณ์ที่ทันสมัยและมีคุณภาพสูงเพื่อให้ประสบการณ์ที่ดีที่สุด</p>
+            
             <p>จากเดิม มีการจัดจองหลังจากที่ได้รับการยืนยันจากทีมงานรักษาความปลอดภัยที่มีอยู่ในเวลา</p>
-
-            <p>ทุกช่วงเวลาของการแบบเฉพาะใดให้ใหม่ในใจอันอบอุ่นระบบและอีกระบบอย่างหลากหลาย
-                จึงเป็นของสถานที่ที่ไม่ใช่ให้ทำความเข้าใจ แต่ยังจะมองไปยังความเป็นมิตรอีกด้วย ความเชื่อมั่น
-                และการพบเจอสิ่งที่ไม่คาดคิดมาก่อนในสถานที่แห่งนี้</p>
-
+            
+            <p>ทุกช่วงเวลาของการแบบเฉพาะใดให้ใหม่ในใจอันอบอุ่นระบบและอีกระบบอย่างหลากหลาย จึงเป็นของสถานที่ที่ไม่ใช่ให้ทำความเข้าใจ แต่ยังจะมองไปยังความเป็นมิตรอีกด้วย ความเชื่อมั่น และการพบเจอสิ่งที่ไม่คาดคิดมาก่อนในสถานที่แห่งนี้</p>
+            
             <p>หรือยังคิดที่จองหาอะไรเพิ่มเติมในสถานที่นี้สถานที่</p>
         </div>
     </main>
@@ -364,46 +350,32 @@
         function updateCarousel() {
             const translateX = -currentSlide * (100 / totalSlides);
             track.style.transform = `translateX(${translateX}%)`;
-
-            // Update indicators
-            indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === currentSlide);
-            });
-
-            // Update thumbnails
-            thumbnails.forEach((thumbnail, index) => {
-                thumbnail.classList.toggle('active', index === currentSlide);
-            });
+            indicators.forEach((el, i) => el.classList.toggle('active', i === currentSlide));
+            thumbnails.forEach((el, i) => el.classList.toggle('active', i === currentSlide));
         }
 
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides; // Loop back to 0 when reaching the end
+            currentSlide = (currentSlide + 1) % totalSlides;
             updateCarousel();
         }
 
         function previousSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; // Loop to last slide when going before first
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             updateCarousel();
         }
 
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
+        function goToSlide(index) {
+            currentSlide = index;
             updateCarousel();
         }
 
-        // Auto-play carousel
         setInterval(nextSlide, 5000);
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                previousSlide();
-            } else if (e.key === 'ArrowRight') {
-                nextSlide();
-            }
+            if (e.key === 'ArrowLeft') previousSlide();
+            if (e.key === 'ArrowRight') nextSlide();
         });
 
-        // Touch/swipe support for mobile
         let startX = 0;
         let endX = 0;
 
@@ -413,21 +385,9 @@
 
         track.addEventListener('touchend', (e) => {
             endX = e.changedTouches[0].clientX;
-            handleSwipe();
+            if (startX - endX > 50) nextSlide();
+            if (endX - startX > 50) previousSlide();
         });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = startX - endX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    nextSlide();
-                } else {
-                    previousSlide();
-                }
-            }
-        }
     </script>
 </body>
 
