@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ล็อคอิน</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="icon" href="img/users.png" type="image/x-icon" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #1f1e29, #2e2d3f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @property --a {
+            syntax: "<angle>";
+            inherits: false;
+            initial-value: 0deg;
+        }
+
+        .box {
+            position: relative;
+            width: 400px;
+            height: 220px;
+            background: repeating-conic-gradient(from var(--a), #ff2770 0% 5%, transparent 5% 40%, #ff2770 50%);
+            animation: spin 4s linear infinite;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 10px 30px #000);
+            transition: 0.5s;
+        }
+
+        .box:hover {
+            width: 450px;
+            height: 520px;
+        }
+
+        .box::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-conic-gradient(from var(--a), #45f3ff 0% 5%, transparent 5% 40%, #45f3ff 50%);
+            animation: spin 4s linear infinite;
+            animation-delay: -1s;
+            border-radius: 20px;
+        }
+
+        .box::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            background: #2d2d39;
+            border-radius: 15px;
+            border: 8px solid #25252b;
+        }
+
+        @keyframes spin {
+            0% {
+                --a: 0deg;
+            }
+
+            100% {
+                --a: 360deg;
+            }
+        }
+
+        .login {
+            position: absolute;
+            inset: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.4);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            transition: 0.5s;
+            color: #fff;
+        }
+
+        .box:hover .login {
+            inset: 40px;
+        }
+
+        .loginBx {
+            width: 75%;
+            transform: translateY(120px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            transition: 0.5s;
+        }
+
+        .box:hover .loginBx {
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        h2 i {
+            color: #ff2770;
+            margin-right: 8px;
+            text-shadow: 0 0 10px #ff2770;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 2px solid #fff;
+            background: rgba(0, 0, 0, 0.15);
+            color: #fff;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #45f3ff;
+            box-shadow: 0 0 8px #45f3ff;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        input[type="submit"] {
+            background: #45f3ff;
+            color: #111;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            box-shadow: 0 0 10px #45f3ff, 0 0 40px #45f3ff;
+        }
+
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #bbb;
+        }
+
+        .group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .group a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .group a:nth-child(2) {
+            color: #ff2770;
+            font-weight: 500;
+        }
+
+        .hide-on-start {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: 0.5s ease;
+        }
+
+        .box:hover .hide-on-start {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        @media (max-width: 480px) {
+
+            .box,
+            .box:hover {
+                width: 90vw;
+                height: 240px;
+            }
+
+            .box:hover {
+                height: 540px;
+            }
+
+            .login {
+                inset: 30px;
+            }
+
+            .box:hover .login {
+                inset: 20px;
+            }
+
+            .loginBx {
+                width: 90%;
+                gap: 14px;
+                margin-top: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .group {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="login">
+            <div class="loginBx">
+                <h2><i class="fas fa-unlock-alt"></i>ล็อคอิน</h2>
+
+                <input type="text" placeholder="อีเมล" class="hide-on-start" />
+                <div class="password-wrapper hide-on-start">
+                    <input type="password" placeholder="รหัสผ่าน" id="password" />
+                    <i class="fa-solid fa-eye" id="togglePassword"></i>
+                </div>
+                <input type="submit" value="เข้าสู่ระบบ" class="hide-on-start" />
+                <div class="group hide-on-start">
+                    <a href="#">ลืมรหัสผ่าน?</a>
+                    <a href="signup.html">สร้างบัญชีใหม่</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toggle = document.getElementById("togglePassword");
+        const password = document.getElementById("password");
+        toggle.onclick = () => {
+            const isPass = password.type === "password";
+            password.type = isPass ? "text" : "password";
+            toggle.classList.toggle("fa-eye");
+            toggle.classList.toggle("fa-eye-slash");
+        };
+    </script>
+</body>
+
+</html>
