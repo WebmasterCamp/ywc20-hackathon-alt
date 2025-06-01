@@ -1,17 +1,226 @@
-<script>
-    import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from "flowbite-svelte";
-  </script>
-<Navbar>
-    <NavBrand href="/">
-      <img src="/favicon.png" class="me-3 h-6 sm:h-9" alt="Flowbite Logo" />
-      <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-    </NavBrand>
-    <NavHamburger />
-    <NavUl>
-      <NavLi href="/">Home</NavLi>
-      <NavLi href="/about">About</NavLi>
-      <NavLi href="/docs/components/navbar">Navbar</NavLi>
-      <NavLi href="/pricing">Pricing</NavLi>
-      <NavLi href="/contact">Contact</NavLi>
-    </NavUl>
-  </Navbar>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    #navbody {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: white;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Background Moon/Planet Effect */
+    body::before {
+        content: '';
+        position: fixed;
+        bottom: -200px;
+        right: -200px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, #4a4a4a 0%, #2a2a2a 70%, transparent 100%);
+        border-radius: 50%;
+        opacity: 0.3;
+        z-index: -1;
+    }
+
+    /* Navigation */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-circle {
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+    }
+
+    .nav-item {
+        position: relative;
+    }
+
+    .nav-link {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 10px 0;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #60a5fa;
+    }
+
+    .nav-link.active {
+        color: #60a5fa;
+    }
+
+    .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #60a5fa;
+    }
+
+    .auth-button {
+        background: #60a5fa;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 25px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .auth-button:hover {
+        background: #3b82f6;
+    }
+
+    /* Main Content */
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 100px);
+        text-align: center;
+        padding: 40px;
+    }
+
+    .hero-text {
+        font-size: 48px;
+        font-weight: bold;
+        line-height: 1.2;
+        margin-bottom: 40px;
+        max-width: 800px;
+    }
+
+    .hero-text .line1 {
+        margin-bottom: 10px;
+    }
+
+    .hero-text .line2 {
+        margin-bottom: 20px;
+    }
+
+    .cta-button {
+        background: #60a5fa;
+        color: white;
+        padding: 16px 32px;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
+    }
+
+    .cta-button:hover {
+        background: #3b82f6;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 15px 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-menu {
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            font-size: 32px;
+            padding: 0 20px;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+        .nav-menu {
+            display: none;
+        }
+
+        .hero-text {
+            font-size: 24px;
+        }
+
+        .cta-button {
+            padding: 14px 28px;
+            font-size: 16px;
+        }
+    }
+</style>
+
+<div id="navbody">
+<nav class="navbar">
+    <div class="logo">
+        <div class="logo-circle">ไลท์</div>
+    </div>
+
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="#" class="nav-link active">ข้อมูล</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">ข้อมูล</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">ข้อมูล</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">ข้อมูล</a>
+        </li>
+    </ul>
+
+    <button class="auth-button">ล็อกอิน/สมัครสมาชิก</button>
+</nav>
+
+</div>
