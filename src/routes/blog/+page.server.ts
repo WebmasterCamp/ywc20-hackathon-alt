@@ -2,8 +2,11 @@ import { error } from '@sveltejs/kit';
 import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
+import * as schema from '../../db/schema';
+import { db } from '../../db/postgres';
 
 export async function load() {
+    const users = await db.query.stargazing.findMany();
     try {
         const blogDir = path.join(process.cwd(), 'src/routes/blog');
         const files = fs.readdirSync(blogDir);

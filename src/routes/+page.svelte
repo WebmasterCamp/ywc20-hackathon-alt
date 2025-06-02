@@ -1,11 +1,13 @@
 <script>
   import { onMount } from 'svelte';
   import Navbar from '../components/navbar.svelte';
+  import Modalask from '../components/modalask.svelte';
   /**
 	 * @type {import("leaflet").Map | import("leaflet").LayerGroup<any>}
 	 */
   let map;
   let locations = [];
+
 
   onMount(async () => {
     const res = await fetch('http://localhost:5173/api/getalocation');
@@ -83,41 +85,12 @@
 </script>
 
 
-<style>
-  #map {
-    height: 25vh;
-    width: 80vh;
-  }
-</style>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<div  id="map"></div>
 
+<Navbar />
 
 <div class="min-h-screen bg-gray-900 text-white">
-  <!-- Header -->
-  <header class="bg-gray-800 px-6 py-4">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-8">
-        <div class="flex items-center space-x-2">
-          <div class="w-6 h-6 bg-white rounded-full"></div>
-          <span class="text-white font-medium">โลก</span>
-        </div>
-        <nav class="flex space-x-8">
-          <a href="/menu1" class="text-blue-400 border-b-2 border-blue-400 pb-1">ชื่อเมนู</a>
-          <a href="/menu2" class="text-gray-300 hover:text-white">ชื่อเมนู</a>
-          <a href="/menu3" class="text-gray-300 hover:text-white">ชื่อเมนู</a>
-          <a href="/menu4" class="text-gray-300 hover:text-white">ชื่อเมนู</a>
-        </nav>
-      </div>
-      <button onclick={handleRegister} class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-        ลงทะเบียน/สมัครสมาชิก
-      </button>
-    </div>
-  </header>
-
   <!-- Hero Section -->
   <section class="relative h-96 flex items-center justify-center bg-cover bg-center" style="background-image: url('/placeholder.svg?height=400&width=800');">
     <img class="absolute inset-0 bg-black" src="back.png">
@@ -176,3 +149,4 @@
     </div>
   </section>
 </div>
+<Modalask />

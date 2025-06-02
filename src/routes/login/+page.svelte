@@ -31,12 +31,7 @@
       
       const data = await res.json();
       
-      if (res.ok && data.success) {
-        // Store in sessionStorage
-        sessionStorage.setItem('email', data.email);
-        sessionStorage.setItem('username', data.username);
-        sessionStorage.setItem('isLoggedIn', 'true');
-        
+      if (res.ok) {
         message = 'Login successful!';
         
         // Redirect to home page after successful login

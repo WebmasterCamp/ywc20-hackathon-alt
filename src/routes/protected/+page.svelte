@@ -1,8 +1,22 @@
 <script lang="ts">
 	import type { PageData } from './$types'
+	import { goto } from '$app/navigation'
+	export let data: PageData;
 
-	export let data: PageData
-
+	async function handleLogout() {
+		try {
+			const res = await fetch('/api/auth/logout', {
+				method: 'POST'
+			});
+			
+			if (res.ok) {
+				// Redirect to login page after successful logout
+				goto('/login');
+			}
+		} catch (e) {
+			console.error('Logout failed:', e);
+		}
+	}
 </script>
 
 <div class="container">
@@ -11,6 +25,7 @@
 		<div class="user-info">
 			<h2>Welcome, {data.user.username}!</h2>
 			<p>Your email: {data.user.email}</p>
+			<button on:click={handleLogout} class="logout-btn">Logout</button>
 		</div>
 	{:else}
 		<p>Please log in to view this page.</p>
@@ -40,22 +55,24 @@
 		color: #444;
 		margin-bottom: 0.5rem;
 	}
+
+	.logout-btn {
+		margin-top: 1rem;
+		padding: 0.5rem 1rem;
+		background-color: #dc2626;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.logout-btn:hover {
+		background-color: #b91c1c;
+	}
 </style>
 
 <div class="grid">
 
-	{#if data.user}
-        <h1>Hello Sekai!</h1>
-        <form method="POST">
-            <li><a href="/">Home</a></li>
-            {#if !data.user}
-                <li><a href="/register">Register</a></li>
-                <li><a href="/login" role="button">Login</a></li>
-            {:else}
-                <li>
-                    <button formaction="/api/auth/logout" type="submit" role="button">Logout</button>
-                </li>
-            {/if}
-        </form>
-	{/if}
+ 
 </div>
