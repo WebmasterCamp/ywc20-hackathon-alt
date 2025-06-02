@@ -49,7 +49,8 @@
     let showPaymentModal = false;
     let showDetailModal = false;
     let showSearchResultsModal = false;
-  
+    let isSearched = $state(false);
+    let showSearchResultafterclose = $state(false);
     // Form data
     let tempMarkerPosition: MarkerPosition | null = null;
     let pointName = '';
@@ -87,6 +88,7 @@
     let mapWrapper: HTMLElement;
     let imageInput: HTMLInputElement;
     let cardsContainer: HTMLElement;
+    
   
     // Province mapping
     const provinceNames: Record<ProvinceKey, string> = {
@@ -322,16 +324,28 @@
     const galleryMainImageDerived = derived([galleryImages, currentGalleryIndex], ([$galleryImages, $currentGalleryIndex]) => {
       return $galleryImages[$currentGalleryIndex] || '/placeholder.svg?height=250&width=400';
     });
-    $: galleryMainImage = $galleryMainImageDerived;
+    galleryMainImage = $galleryMainImageDerived;
   
     // Convert paymentMethod to a store
     const paymentMethodStore = writable(paymentMethod);
-    $: paymentMethodStore.set(paymentMethod);
+    paymentMethodStore.set(paymentMethod);
   
     const showCreditCardSectionDerived = derived(paymentMethodStore, ($paymentMethod) => {
       return $paymentMethod === 'credit';
     });
-    $: showCreditCardSection = $showCreditCardSectionDerived;
+    showCreditCardSection = $showCreditCardSectionDerived;
+
+    function showSearchResultsModalFunc(){
+        if(isSearched){
+        showSearchResultsModal = false;
+        showSearchResultafterclose = false;
+    }
+        else{
+            showSearchResultsModal = true;
+            isSearched = true;
+            showSearchResultafterclose = true;
+        }
+    }
   
     onMount(() => {
       // Initialize any DOM-dependent functionality
@@ -389,18 +403,21 @@
           <input type="date" bind:value={endDate}>
         </div>
       </div>
-      <button class="search-btn" onclick={performSearch}>ค้นหา</button>
+      <button class="search-btn"  onclick={showSearchResultsModalFunc}>ค้นหา</button>
     </div>
   </section>
   
   <!-- Search Results Modal -->
-  {#if showSearchResultsModal}
+  {#if isSearched} 
+  {#if showSearchResultafterclose}
+  
     <div class="search-results-modal">
       <div class="search-results-content">
         <div class="search-results-header">
-          <span class="search-results-close" onclick={() => showSearchResultsModal = false}>&times;</span>
+          <span class="search-results-close" onclick={showSearchResultsModalFunc}>&times;</span>
           <h2 class="search-results-title">ผลการค้นหา</h2>
           <p class="search-results-subtitle">กิจกรรมแนะนำสำหรับคุณ</p>
+          sdsd
         </div>
   
         <div class="search-results-body">
@@ -470,7 +487,7 @@
         </div>
       </div>
     </div>
-  {/if}
+    {/if}
   
   <!-- Content -->
   <main class="content">
@@ -530,6 +547,7 @@
       </div>
     </div>
   </main>
+  {/if}
   
   <div class="container">
     <h1 class="title">จุดดาราศาสตร์แห่ง ({$pointCount} แห่ง)</h1>
@@ -800,7 +818,7 @@
       </div>
     </div>
   {/if}
-  
+
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
   

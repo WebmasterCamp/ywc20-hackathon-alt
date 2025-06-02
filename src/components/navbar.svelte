@@ -40,10 +40,10 @@
 
   <nav>
       <ul class="nav-menu">
-          <li><a href="#" >หน้าหลัก</a></li>
-          <li><a href="#" >บทความ</a></li>
-          <li><a href="#" >ข้อมูลดวงดาว</a></li>
-          <li><a href="#" >กิจกรรม</a></li>
+          <li><a href="/blog" >บทความ</a></li>
+          <li><a href="/search" >ค้นหาสถานที่ดูดาว</a></li>
+          <li><a href="/blog" >แกลลอรี่</a></li>
+          <li><a href="/seach" >กิจกรรม</a></li>
       </ul>
   </nav>
 	{#if data.user}

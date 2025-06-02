@@ -565,24 +565,65 @@
 {/if}
 
 <!-- Footer -->
-<footer>
-	<div class="footer-content">
-		<div class="footer-logo">
-			<div class="logo-icon">S</div>
-			<span>ดูดาว</span>
+<footer class="footer">
+	<div class="footer-container">
+		<div class="footer-section">
+			<div class="footer-logo">
+				<div class="logo-icon">S</div>
+				<span>ดูดาว</span>
+			</div>
+			<p class="footer-description">
+				แหล่งข้อมูลและบทความเกี่ยวกับดาราศาสตร์ที่ครบถ้วนและน่าเชื่อถือ
+			</p>
 		</div>
 
-		<div class="footer-links">
-			<a href="#home">หน้าหลัก</a>
-			<a href="#articles">บทความ</a>
-			<a href="#stars">ข้อมูลดวงดาว</a>
-			<a href="#activities">กิจกรรม</a>
-			<a href="#about">เกี่ยวกับเรา</a>
-			<a href="#contact">ติดต่อเรา</a>
+		<div class="footer-section">
+			<h3 class="footer-heading">เมนูหลัก</h3>
+			<nav class="footer-nav">
+				<a href="#home">หน้าหลัก</a>
+				<a href="#articles">บทความ</a>
+				<a href="#stars">ข้อมูลดวงดาว</a>
+				<a href="#activities">กิจกรรม</a>
+			</nav>
 		</div>
 
-		<div class="copyright">
-			© 2025 ดูดาว. สงวนลิขสิทธิ์.
+		<div class="footer-section">
+			<h3 class="footer-heading">เกี่ยวกับเรา</h3>
+			<nav class="footer-nav">
+				<a href="#about">เกี่ยวกับเรา</a>
+				<a href="#contact">ติดต่อเรา</a>
+				<a href="#privacy">นโยบายความเป็นส่วนตัว</a>
+				<a href="#terms">เงื่อนไขการใช้งาน</a>
+			</nav>
+		</div>
+
+		<div class="footer-section">
+			<h3 class="footer-heading">ติดตามเรา</h3>
+			<div class="social-links">
+				<a href="#" class="social-link" aria-label="Facebook">
+					<i class="fab fa-facebook"></i>
+				</a>
+				<a href="#" class="social-link" aria-label="Twitter">
+					<i class="fab fa-twitter"></i>
+				</a>
+				<a href="#" class="social-link" aria-label="Instagram">
+					<i class="fab fa-instagram"></i>
+				</a>
+				<a href="#" class="social-link" aria-label="YouTube">
+					<i class="fab fa-youtube"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-bottom">
+		<div class="footer-bottom-content">
+			<p class="copyright">© 2025 ดูดาว. สงวนลิขสิทธิ์.</p>
+			<div class="footer-bottom-links">
+				<a href="#privacy">นโยบายความเป็นส่วนตัว</a>
+				<span class="separator">|</span>
+				<a href="#terms">เงื่อนไขการใช้งาน</a>
+			</div>
 		</div>
 	</div>
 </footer>
@@ -1144,15 +1185,109 @@
 		gap: 0.5rem;
 	}
 
-	/* Footer */
-	footer {
+	/* Footer Styles */
+	.footer {
 		background-color: #0a0d14;
-		padding: 2rem 1rem;
-		margin-top: 2rem;
-		text-align: center;
+		padding: 4rem 1rem 0;
+		margin-top: 4rem;
 	}
 
-	.footer-content {
+	.footer-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+		padding-bottom: 3rem;
+	}
+
+	.footer-section {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.footer-logo {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+
+	.footer-logo .logo-icon {
+		width: 32px;
+		height: 32px;
+		background-color: #4a90e2;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-weight: bold;
+	}
+
+	.footer-description {
+		color: #b0b7c3;
+		font-size: 0.9rem;
+		line-height: 1.6;
+		max-width: 300px;
+	}
+
+	.footer-heading {
+		color: white;
+		font-size: 1.1rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+	}
+
+	.footer-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 0.8rem;
+	}
+
+	.footer-nav a {
+		color: #b0b7c3;
+		text-decoration: none;
+		font-size: 0.9rem;
+		transition: color 0.3s;
+	}
+
+	.footer-nav a:hover {
+		color: #4a90e2;
+	}
+
+	.social-links {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.social-link {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		background-color: #1a1f2e;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #b0b7c3;
+		text-decoration: none;
+		transition: all 0.3s;
+	}
+
+	.social-link:hover {
+		background-color: #4a90e2;
+		color: white;
+		transform: translateY(-2px);
+	}
+
+	.footer-bottom {
+		border-top: 1px solid #1a1f2e;
+		padding: 1.5rem 0;
+	}
+
+	.footer-bottom-content {
 		max-width: 1200px;
 		margin: 0 auto;
 		display: flex;
@@ -1162,100 +1297,44 @@
 		gap: 1rem;
 	}
 
-	.footer-logo {
+	.copyright {
+		color: #b0b7c3;
+		font-size: 0.9rem;
+	}
+
+	.footer-bottom-links {
 		display: flex;
+		gap: 1rem;
 		align-items: center;
-		gap: 0.5rem;
 	}
 
-	.footer-links {
-		display: flex;
-		gap: 1.5rem;
-	}
-
-	.footer-links a {
+	.footer-bottom-links a {
 		color: #b0b7c3;
 		text-decoration: none;
 		font-size: 0.9rem;
 		transition: color 0.3s;
 	}
 
-	.footer-links a:hover {
+	.footer-bottom-links a:hover {
 		color: #4a90e2;
 	}
 
-	.copyright {
-		width: 100%;
-		margin-top: 1.5rem;
-		color: #b0b7c3;
-		font-size: 0.9rem;
+	.separator {
+		color: #1a1f2e;
 	}
 
-	/* Responsive Design */
+	/* Responsive Footer */
 	@media (max-width: 768px) {
-		.header {
-			padding: 0.8rem;
-			flex-direction: column;
-			gap: 1rem;
+		.footer {
+			padding: 3rem 1rem 0;
 		}
 
-		.nav-menu {
-			order: 3;
-			width: 100%;
-			justify-content: center;
-			gap: 0.5rem;
+		.footer-container {
+			grid-template-columns: 1fr;
+			gap: 2rem;
 		}
 
-		.nav-menu a {
-			padding: 0.4rem 0.6rem;
-			font-size: 12px;
-		}
-
-		.login-btn {
-			order: 2;
-			padding: 0.5rem 1rem;
-			font-size: 12px;
-		}
-
-		.hero h1 {
-			font-size: 2rem;
-		}
-
-		.hero p {
-			font-size: 1rem;
-		}
-
-		.filter-buttons {
-			flex-direction: column;
-			gap: 0.5rem;
-			width: 100%;
-			max-width: 600px;
-		}
-
-		.filter-btn, .create-article-btn {
-			width: 100%;
-			justify-content: center;
-		}
-
-		.modal-content {
-			width: 98%;
-			margin: 1rem;
-		}
-
-		.modal-body {
-			padding: 1rem;
-		}
-
-		.form-buttons {
-			flex-direction: column;
-		}
-
-		.btn {
-			width: 100%;
-		}
-
-		.footer-content {
-			flex-direction: column;
+		.footer-section {
 			text-align: center;
 		}
 
@@ -1263,30 +1342,20 @@
 			justify-content: center;
 		}
 
-		.footer-links {
-			flex-direction: column;
-			gap: 1rem;
+		.footer-description {
+			margin: 0 auto;
 		}
 
-		.detail-image {
-			height: 200px;
+		.social-links {
+			justify-content: center;
 		}
-		
-		.detail-title {
-			font-size: 1.5rem;
-		}
-		
-		.detail-meta {
+
+		.footer-bottom-content {
 			flex-direction: column;
-			gap: 0.5rem;
+			text-align: center;
 		}
-		
-		.detail-actions {
-			flex-direction: column;
-		}
-		
-		.detail-actions .btn {
-			width: 100%;
+
+		.footer-bottom-links {
 			justify-content: center;
 		}
 	}
