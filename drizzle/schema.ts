@@ -81,3 +81,4 @@ export const hotel = pgTable("hotel", {
 			name: "hotel_type_fk"
 		}),
 ]);
+

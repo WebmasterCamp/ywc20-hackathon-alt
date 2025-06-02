@@ -6,6 +6,7 @@
   "tables": {
     "public.Category": {
       "name": "Category",
+
       "schema": "",
       "columns": {
         "id": {
@@ -466,6 +467,7 @@
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
+
       "isRLSEnabled": false
     }
   },
@@ -478,6 +480,7 @@
   "_meta": {
     "columns": {},
     "schemas": {},
+
     "tables": {}
   }
 }

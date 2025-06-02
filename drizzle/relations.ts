@@ -11,3 +11,4 @@ export const hotelRelations = relations(hotel, ({one}) => ({
 export const categoriesRelations = relations(categories, ({many}) => ({
 	hotels: many(hotel),
 }));
+

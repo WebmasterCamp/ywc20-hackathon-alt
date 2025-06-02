@@ -41,7 +41,9 @@
     });
   });
 
+  function handleSearch() {
 
+  }
     
   const cards = [
     {
@@ -97,7 +99,7 @@
     <div class="relative text-center z-10">
       <h1 class="text-4xl md:text-5xl font-bold mb-2">คำพูดเซียบชวนมากดูปุ่ม</h1>
       <h2 class="text-4xl md:text-5xl font-bold mb-8">คำพูดเซียบชวนมากดูปุ่ม</h2>
-      <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition-colors">
+      <button class="bg-teamblue hover:bg-teamblue/80 px-6 py-3 rounded-lg font-medium transition-colors">
         ปุ่มไปพิงค์ขันแนบ
       </button>
     </div>
@@ -106,9 +108,9 @@
   <!-- Search Section -->
   <section class="px-6 py-8">
     <div class="max-w-md mx-auto relative">
-      <!-- <form onsubmit={handleSearch}>
+      <form onsubmit={handleSearch}>
         <div class="relative">
-          <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
             placeholder="ค้นหา"
@@ -116,10 +118,10 @@
             class="w-full pl-10 pr-4 py-3 bg-white text-gray-900 rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
-      </form> -->
+      </form>
     </div>
     
-    <div class="flex justify-center space-x-8 mt-6">
+    <div class="mt-56 flex justify-center space-x-8 mt-6">
       <a href="/top-rated" class="text-blue-400 hover:text-blue-300 text-sm">สถานที่ดูดาวที่ดีที่สุด</a>
       <a href="/family-friendly" class="text-blue-400 hover:text-blue-300 text-sm">สถานที่ดูดาวและน่าสำหรับครอบครัว</a>
     </div>
@@ -129,22 +131,18 @@
   <section class="px-6 pb-12">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
       {#each cards as card}
-        <div class="bg-gray-800 rounded-lg overflow-hidden">
-          <div class="relative h-48 bg-gray-600">
-            <img 
-              src="/placeholder.svg?height=200&width=300" 
-              alt="สถานที่ดูดาว"
-              class="w-full h-full object-cover"
-            />
+      <div class="space-y-4">
+        <Card img="image.png" class="bg-[#000]">
+          <div class="m-6">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">Noteworthy technology acquisitions 2021</h5>
+            <p class="mb-3 leading-tight font-normal text-white">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            <Button class="w-40">
+              Read more <ArrowRightOutline class="ms-2 h-6 w-6 text-white" />
+            </Button>
           </div>
-          <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">{card.title}</h3>
-            <p class="text-gray-400 text-sm mb-4">{card.description}</p>
-            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-              อ่านเพิ่มเติม
-            </button>
-          </div>
-        </div>
+        </Card>
+      </div>
+        
       {/each}
     </div>
   </section>
