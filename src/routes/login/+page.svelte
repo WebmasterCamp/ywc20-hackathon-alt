@@ -36,8 +36,8 @@
         
         // Redirect to home page after successful login
         setTimeout(() => {
-          goto('/');
-        }, 1000);
+          window.location.href = "/"; 
+                }, 1000);
       } else {
         error = data.error || 'Login failed';
       }
