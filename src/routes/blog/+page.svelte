@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import Navbar from '../../components/navbar.svelte';
+	import Footer from '../../components/footer.svelte';
+    let { data } = $props();
 
 	// Type definitions
 	interface Article {
@@ -357,21 +360,8 @@
 </svelte:head>
 
 <!-- Header -->
-<header class="header">
-	<div class="logo">
-		<div class="logo-icon"></div>
-		<span>ไลก์</span>
-	</div>
-	<nav>
-		<ul class="nav-menu">
-			<li><a href="/">หน้าหลัก</a></li>
-			<li><a href="/blog">บทความ</a></li>
-			<li><a href="/search">ค้นหาที่ดูดาว</a></li>
-			<li><a href="/blog">i</a></li>
-		</ul>
-	</nav>
-	<a href="#login" class="login-btn">ล็อคอิน/สมัครสมาชิก</a>
-</header>
+<Navbar data={data} />
+
 
 <!-- Hero Section -->
 <section class="hero">
@@ -565,132 +555,26 @@
 {/if}
 
 <!-- Footer -->
-<footer class="footer">
-	<div class="footer-container">
-		<div class="footer-section">
-			<div class="footer-logo">
-				<div class="logo-icon">S</div>
-				<span>ดูดาว</span>
-			</div>
-			<p class="footer-description">
-				แหล่งข้อมูลและบทความเกี่ยวกับดาราศาสตร์ที่ครบถ้วนและน่าเชื่อถือ
-			</p>
-		</div>
-
-		<div class="footer-section">
-			<h3 class="footer-heading">เมนูหลัก</h3>
-			<nav class="footer-nav">
-				<a href="/">หน้าหลัก</a>
-				<a href="/blog">บทความ</a>
-				<a href="/">ข้อมูลดวงดาว</a>
-				<a href="#activities">กิจกรรม</a>
-			</nav>
-		</div>
-
-		<div class="footer-section">
-			<h3 class="footer-heading">เกี่ยวกับเรา</h3>
-			<nav class="footer-nav">
-				<a href="#about">เกี่ยวกับเรา</a>
-				<a href="#contact">ติดต่อเรา</a>
-				<a href="#privacy">นโยบายความเป็นส่วนตัว</a>
-				<a href="#terms">เงื่อนไขการใช้งาน</a>
-			</nav>
-		</div>
-
-		<div class="footer-section">
-			<h3 class="footer-heading">ติดตามเรา</h3>
-			<div class="social-links">
-				<a href="#" class="social-link" aria-label="Facebook">
-					<i class="fab fa-facebook"></i>
-				</a>
-				<a href="#" class="social-link" aria-label="Twitter">
-					<i class="fab fa-twitter"></i>
-				</a>
-				<a href="#" class="social-link" aria-label="Instagram">
-					<i class="fab fa-instagram"></i>
-				</a>
-				<a href="#" class="social-link" aria-label="YouTube">
-					<i class="fab fa-youtube"></i>
-				</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="footer-bottom">
-		<div class="footer-bottom-content">
-			<p class="copyright">© 2025 ดูดาว. สงวนลิขสิทธิ์.</p>
-			<div class="footer-bottom-links">
-				<a href="#privacy">นโยบายความเป็นส่วนตัว</a>
-				<span class="separator">|</span>
-				<a href="#terms">เงื่อนไขการใช้งาน</a>
-			</div>
-		</div>
-	</div>
-</footer>
-
+ <div class="mt-5">
+<Footer />
+</div>
 <style>
 	:global(*) {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
+
 	}
 
 	:global(body) {
 		font-family: 'Sarabun', sans-serif;
 		background-color: #121620;
 		color: #ffffff;
-		line-height: 1.6;
 	}
 
 	/* Enhanced Mobile Header */
-	.header {
-		background-color: #1a1a1a;
-		padding: 1rem;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-bottom: 1px solid #333;
-		position: sticky;
-		top: 0;
-		z-index: 1000;
-		flex-wrap: wrap;
-	}
 
-	.logo {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-weight: 500;
-		font-size: 1.1rem;
-	}
 
-	.logo-icon {
-		width: 24px;
-		height: 24px;
-		background-color: white;
-		border-radius: 50%;
-	}
 
-	.nav-menu {
-		display: flex;
-		gap: 1rem;
-		list-style: none;
-		flex-wrap: wrap;
-	}
 
-	.nav-menu a {
-		color: white;
-		text-decoration: none;
-		padding: 0.5rem 0.8rem;
-		border-radius: 4px;
-		transition: background-color 0.3s;
-		font-size: 14px;
-		white-space: nowrap;
-	}
 
-	.nav-menu a:hover {
-		background-color: rgba(255, 255, 255, 0.1);
-	}
 
 	.login-btn {
 		background-color: #4a90e2;

@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { writable, derived } from 'svelte/store';
-
+  export let data;
+  import Navbar from '../../components/navbar.svelte';
+  import Footer from '../../components/footer.svelte';
   // Types
   interface MarkerPosition {
     x: number;
@@ -345,21 +347,7 @@
 </svelte:head>
 
 <!-- Header -->
-<header class="header">
-  <div class="logo">
-    <div class="logo-icon"></div>
-    <span>ไลก์</span>
-  </div>
-  <nav>
-    <ul class="nav-menu">
-      <li><a href="#">ดื่มนม</a></li>
-      <li><a href="#">ดื่มนม</a></li>
-      <li><a href="#">ดื่มนม</a></li>
-      <li><a href="#">ดื่มนม</a></li>
-    </ul>
-  </nav>
-  <button class="login-btn">ล็อคอิน/สมัครสมาชิก</button>
-</header>
+<Navbar data={data} />
 
 <!-- Hero Section -->
 <section class="hero">
@@ -800,13 +788,14 @@
     </div>
   </div>
 {/if}
-
+<div class="mt-5">
+<Footer />
+</div>
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
   :global(*) {
-    margin: 0;
-    padding: 0;
+ 
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
@@ -815,7 +804,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #1a1a1a;
     color: white;
-    line-height: 1.6;
+
   }
 
   /* Header */

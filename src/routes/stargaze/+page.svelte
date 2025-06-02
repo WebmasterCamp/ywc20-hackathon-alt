@@ -1,7 +1,9 @@
 <script>
     import { Search } from 'lucide-svelte';
     import Footer from '../../components/footer.svelte';
+	import Navbar from 'components/navbar.svelte';
     let searchQuery = $state('');
+    let { data } = $props();
     
     const tripPackages = [
       {
@@ -27,29 +29,7 @@
   
   <div class="min-h-screen bg-gray-900 text-white">
     <!-- Header -->
-    <header class="bg-gray-900/80 backdrop-blur-sm border-b border-gray-800">
-      <div class="container mx-auto px-4 py-4">
-        <nav class="flex items-center justify-between">
-          <div class="flex items-center space-x-2">
-            <div class="w-8 h-8  rounded-full flex items-center justify-center">
-              <img class="text-gray-900 font-bold text-sm" src="/Stargaze_logo.png">
-            </div>
-            <span class="text-xl font-bold">stargaze</span>
-          </div>
-          
-          <div class="hidden md:flex items-center space-x-8">
-            <a href="/" class="text-gray-300 hover:text-white transition-colors">บทความ</a>
-            <a href="/" class="text-gray-300 hover:text-white transition-colors">ค้นหาสถานที่ดูดาว</a>
-            <a href="/" class="text-gray-300 hover:text-white transition-colors">แกลลอรี่</a>
-            <a href="/trip" class="text-blue-400 font-medium">ทริปดูดาว</a>
-          </div>
-          
-          <button class="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-lg font-medium transition-colors">
-            ลงทะเบียน/สมัครสมาชิก
-          </button>
-        </nav>
-      </div>
-    </header>
+<Navbar data={data} />
   
     <!-- Hero Section -->
     <section class="relative min-h-[70vh] flex items-center justify-center">

@@ -32,150 +32,35 @@
   
 </script>
 
-<header class="header">
-  <div class="logo">
-      <img class="logo-icon" src="/Stargaze_logo.png">
-      <span>ไลก์</span>
-  </div>
 
-  <nav>
-      <ul class="nav-menu">
-          <li><a href="/blog" >บทความ</a></li>
-          <li><a href="/search" >ค้นหาสถานที่ดูดาว</a></li>
-          <li><a href="/blog" >แกลลอรี่</a></li>
-          <li><a href="/seach" >กิจกรรม</a></li>
-      </ul>
-  </nav>
-	{#if data.user}
-  <button class="login-btn" onclick={handleLogout}>
+
+<header class="bg-gray-900 text-white backdrop-blur-sm border-b border-gray-800">
+    <div class="container mx-auto px-4 py-4">
+      <nav class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8  rounded-full flex items-center justify-center">
+            <img class="text-gray-900 font-bold text-sm" src="/Stargaze_logo.png">
+          </div>
+          <span class="text-xl font-bold">stargaze</span>
+        </div>
+        
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="/blog" class="text-gray-300 hover:text-white transition-colors">บทความ</a>
+          <a href="/search" class="text-gray-300 hover:text-white transition-colors">ค้นหาสถานที่ดูดาว</a>
+          <a href="/stargaze" class="text-gray-300 hover:text-white transition-colors">แกลลอรี่</a>
+          <a href="/search" class="text-gray-300 font-medium">ทริปดูดาว</a>
+        </div>
+        {#if data.user}
+        <button onclick={handleLogout} class="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-lg font-medium transition-colors">
 			<h2>Welcome, {data.user.username}!</h2>
 			<p>Your email: {data.user.email}</p>
-  </button>
-	{:else}
-  <a class="login-btn" href="/login">
-      ล็อคอิน/สมัครสมาชิก
-  </a>
-  {/if}
-</header>
+                  </button>
+        {:else}
+        <a href="/login" class="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-lg font-medium transition-colors">
+          ลงทะเบียน/สมัครสมาชิก
+        </a>
+        {/if}
+      </nav>
+    </div>
+  </header>
 
-<style>
-  .header {
-      background-color: #1a1a1a;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #333;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      flex-wrap: wrap;
-  }
-
-  .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 500;
-      font-size: 1.1rem;
-      color: white;
-  }
-
-  .logo-icon {
-      width: 24px;
-      height: 24px;
-      background-color: white;
-      border-radius: 50%;
-  }
-
-  .nav-menu {
-      display: flex;
-      gap: 1rem;
-      list-style: none;
-      flex-wrap: wrap;
-      margin: 0;
-      padding: 0;
-  }
-
-  .nav-menu a {
-      color: white;
-      text-decoration: none;
-      padding: 0.5rem 0.8rem;
-      border-radius: 4px;
-      transition: background-color 0.3s;
-      font-size: 14px;
-      white-space: nowrap;
-      cursor: pointer;
-  }
-
-  .nav-menu a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .login-btn {
-      background-color: #4a90e2;
-      color: white;
-      padding: 0.6rem 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.3s;
-      white-space: nowrap;
-      font-family: inherit;
-  }
-
-  .login-btn:hover {
-      background-color: #357abd;
-  }
-
-  @media (max-width: 768px) {
-      .header {
-          padding: 0.8rem;
-          flex-direction: column;
-          gap: 1rem;
-      }
-
-      .nav-menu {
-          order: 3;
-          width: 100%;
-          justify-content: center;
-          gap: 0.5rem;
-      }
-
-      .nav-menu a {
-          padding: 0.4rem 0.6rem;
-          font-size: 12px;
-      }
-
-      .login-btn {
-          order: 2;
-          padding: 0.5rem 1rem;
-          font-size: 12px;
-      }
-  }
-
-  @media (max-width: 480px) {
-      .header {
-          padding: 0.6rem;
-      }
-
-      .logo {
-          font-size: 1rem;
-      }
-
-      .nav-menu {
-          gap: 0.3rem;
-      }
-
-      .nav-menu a {
-          padding: 0.3rem 0.5rem;
-          font-size: 11px;
-      }
-
-      .login-btn {
-          padding: 0.4rem 0.8rem;
-          font-size: 11px;
-      }
-  }
-</style>
