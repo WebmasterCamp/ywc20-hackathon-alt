@@ -364,10 +364,10 @@
 	</div>
 	<nav>
 		<ul class="nav-menu">
-			<li><a href="#home">หน้าหลัก</a></li>
-			<li><a href="#articles">บทความ</a></li>
-			<li><a href="#stars">ข้อมูลดวงดาว</a></li>
-			<li><a href="#activities">กิจกรรม</a></li>
+			<li><a href="/">หน้าหลัก</a></li>
+			<li><a href="/blog">บทความ</a></li>
+			<li><a href="/search">ค้นหาที่ดูดาว</a></li>
+			<li><a href="/blog">กิจกรรม</a></li>
 		</ul>
 	</nav>
 	<a href="#login" class="login-btn">ล็อคอิน/สมัครสมาชิก</a>
@@ -580,9 +580,9 @@
 		<div class="footer-section">
 			<h3 class="footer-heading">เมนูหลัก</h3>
 			<nav class="footer-nav">
-				<a href="#home">หน้าหลัก</a>
-				<a href="#articles">บทความ</a>
-				<a href="#stars">ข้อมูลดวงดาว</a>
+				<a href="/">หน้าหลัก</a>
+				<a href="/blog">บทความ</a>
+				<a href="/">ข้อมูลดวงดาว</a>
 				<a href="#activities">กิจกรรม</a>
 			</nav>
 		</div>
