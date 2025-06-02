@@ -367,7 +367,7 @@
 			<li><a href="/">หน้าหลัก</a></li>
 			<li><a href="/blog">บทความ</a></li>
 			<li><a href="/search">ค้นหาที่ดูดาว</a></li>
-			<li><a href="/blog">กิจกรรม</a></li>
+			<li><a href="/blog">i</a></li>
 		</ul>
 	</nav>
 	<a href="#login" class="login-btn">ล็อคอิน/สมัครสมาชิก</a>

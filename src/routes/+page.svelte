@@ -367,3 +367,961 @@
 		return text.length > 120 ? text.substring(0, 120) + '...' : text;
 	}
 </script>
+
+<div class="container">
+	<!-- Search and Filter Section -->
+	<div class="search-section">
+		<div class="search-container">
+			<input
+				type="text"
+				class="search-input"
+				placeholder="ค้นหาบทความ..."
+				bind:value={$searchTermStore}
+			/>
+			<button class="search-btn" on:click={performSearch}>
+				<i class="fas fa-search"></i>
+			</button>
+		</div>
+		<div class="filter-buttons">
+			<button
+				class="filter-btn {$activeFilterStore === 'latest' ? 'active' : 'inactive'}"
+				on:click={() => setFilter('latest')}
+			>
+				ล่าสุด
+			</button>
+			<button
+				class="filter-btn {$activeFilterStore === 'popular' ? 'active' : 'inactive'}"
+				on:click={() => setFilter('popular')}
+			>
+				ยอดนิยม
+			</button>
+			<button class="create-article-btn" on:click={openCreateModal}>
+				<i class="fas fa-plus"></i>
+				เขียนบทความ
+			</button>
+		</div>
+	</div>
+
+	<!-- Articles Grid -->
+	<div class="articles-section">
+		<div class="articles-grid">
+			{#each $filteredArticles as article (article.id)}
+				<div class="article-card">
+					<div class="article-image" style="background-image: url({article.image})">
+						<div class="article-category">
+							{article.category === 'popular' ? 'ยอดนิยม' : 'ล่าสุด'}
+						</div>
+					</div>
+					<div class="article-content">
+						<h3 class="article-title">{article.title}</h3>
+						<p class="article-description">{article.description}</p>
+						<button class="read-more" on:click={() => openArticleDetail(article)}>
+							อ่านเพิ่มเติม
+						</button>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</div>
+
+	<!-- Create Article Modal -->
+	{#if showCreateModal}
+		<div class="modal active">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title">เขียนบทความใหม่</h2>
+					<button class="close-btn" on:click={closeCreateModal}>&times;</button>
+				</div>
+				<div class="modal-body">
+					<form on:submit={submitArticle}>
+						<div class="form-group">
+							<label class="form-label" for="title">หัวข้อบทความ</label>
+							<input
+								type="text"
+								id="title"
+								class="form-input"
+								bind:value={articleTitle}
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<label class="form-label" for="content">เนื้อหาบทความ</label>
+							<textarea
+								id="content"
+								class="form-input form-textarea"
+								bind:value={articleContent}
+								required
+							></textarea>
+						</div>
+						<div class="form-group">
+							<label class="form-label" for="category">หมวดหมู่</label>
+							<select id="category" class="form-input" bind:value={articleCategory}>
+								<option value="latest">ล่าสุด</option>
+								<option value="popular">ยอดนิยม</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="form-label">รูปภาพประกอบ</label>
+							<div
+								class="image-upload-area"
+								on:click={() => document.getElementById('image-upload')?.click()}
+							>
+								{#if previewImageSrc}
+									<div class="image-preview active">
+										<div class="image-preview-container">
+											<img src={previewImageSrc} alt="Preview" class="preview-image" />
+											<button
+												type="button"
+												class="remove-image-btn"
+												on:click|stopPropagation={removeImage}
+											>
+												&times;
+											</button>
+										</div>
+									</div>
+								{:else}
+									<i class="fas fa-cloud-upload-alt upload-icon"></i>
+									<p class="upload-text">คลิกเพื่ออัปโหลดรูปภาพ</p>
+									<p class="upload-text">รองรับไฟล์ JPG, PNG ขนาดไม่เกิน 5MB</p>
+								{/if}
+								<input
+									type="file"
+									id="image-upload"
+									class="file-input"
+									accept="image/*"
+									on:change={handleImageUpload}
+								/>
+							</div>
+						</div>
+						<div class="form-buttons">
+							<button type="button" class="btn btn-secondary" on:click={closeCreateModal}>
+								ยกเลิก
+							</button>
+							<button type="submit" class="btn btn-primary">เผยแพร่</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	{/if}
+
+	<!-- Article Detail Modal -->
+	{#if showDetailModal && selectedArticle}
+		<div class="modal active">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title">{selectedArticle.title}</h2>
+					<button class="close-btn" on:click={closeDetailModal}>&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="detail-image-container">
+						<img src={selectedArticle.image} alt={selectedArticle.title} class="detail-image" />
+					</div>
+					<div class="detail-meta">
+						<span class="detail-category">{selectedArticle.displayCategory}</span>
+						<span class="detail-date">{selectedArticle.date}</span>
+					</div>
+					<div class="detail-description">
+						{selectedArticle.fullContent}
+					</div>
+					<div class="detail-actions">
+						<button class="btn btn-primary" on:click={shareArticle}>
+							<i class="fas fa-share-alt"></i>
+							แชร์
+						</button>
+						<button class="btn btn-secondary" on:click={toggleFavorite}>
+							<i class="fas fa-heart"></i>
+							เพิ่มในรายการโปรด
+						</button>
+					</div>
+
+					<!-- Comments Section -->
+					<div class="comments-section">
+						<h3>ความคิดเห็น ({commentCount})</h3>
+						<div class="comment-form">
+							<div class="rating-input">
+								{#each Array(5) as _, i}
+									<button
+										class="star-btn {i < $selectedRatingStore ? 'active' : ''}"
+										on:click={() => setRating(i + 1)}
+									>
+										<i class="fas fa-star"></i>
+									</button>
+								{/each}
+							</div>
+							<div class="comment-input-container">
+								<textarea
+									class="comment-input"
+									placeholder="เขียนความคิดเห็น..."
+									bind:value={$commentTextStore}
+								></textarea>
+								<div class="char-count {$charCount > 500 ? 'error' : ''}">
+									{$charCount}/500
+								</div>
+							</div>
+							<button
+								class="submit-comment-btn"
+								on:click={addComment}
+								disabled={$isSubmitDisabled}
+							>
+								โพสต์
+							</button>
+						</div>
+						<div class="comments-list">
+							{#each comments as comment (comment.id)}
+								<div class="comment">
+									<div class="comment-header">
+										<div class="comment-user">
+											<div class="user-avatar">{comment.avatar}</div>
+											<div class="user-info">
+												<div class="username">{comment.username}</div>
+												<div class="comment-meta">
+													<div class="rating">
+														{#each Array(5) as _, i}
+															<i
+																class="fas fa-star {i < comment.rating ? 'active' : ''}"
+															></i>
+														{/each}
+													</div>
+													<span class="timestamp">{comment.timestamp}</span>
+												</div>
+											</div>
+										</div>
+										<button
+											class="like-btn {comment.liked ? 'active' : ''}"
+											on:click={() => toggleLike(comment)}
+										>
+											<i class="fas fa-heart"></i>
+											<span>{comment.likes}</span>
+										</button>
+									</div>
+									<div class="comment-content">
+										{#if comment.expanded}
+											{comment.text}
+										{:else}
+											{shouldShowReadMore(comment.text)
+												? getTruncatedText(comment.text)
+												: comment.text}
+										{/if}
+										{#if shouldShowReadMore(comment.text)}
+											<button
+												class="read-more-btn"
+												on:click={() => toggleReadMore(comment)}
+											>
+												{comment.expanded ? 'แสดงน้อยลง' : 'อ่านเพิ่มเติม'}
+											</button>
+										{/if}
+									</div>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
+</div>
+
+<style>
+	/* Container */
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+
+	/* Search Section */
+	.search-section {
+		background-color: #0a0d14;
+		padding: 1.5rem 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.search-container {
+		display: flex;
+		max-width: 600px;
+		width: 100%;
+	}
+
+	.search-input {
+		flex: 1;
+		padding: 0.8rem 1rem;
+		border: 1px solid #2a3040;
+		border-right: none;
+		border-radius: 4px 0 0 4px;
+		background-color: rgba(255, 255, 255, 0.1);
+		color: white;
+		font-size: 0.9rem;
+	}
+
+	.search-input::placeholder {
+		color: #b0b7c3;
+	}
+
+	.search-input:focus {
+		outline: none;
+		background-color: rgba(255, 255, 255, 0.15);
+	}
+
+	.search-btn {
+		background-color: #4a90e2;
+		color: white;
+		border: none;
+		padding: 0 1.5rem;
+		border-radius: 0 4px 4px 0;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.search-btn:hover {
+		background-color: #3a7bc8;
+	}
+
+	.filter-buttons {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.filter-btn {
+		padding: 0.5rem 1.5rem;
+		border-radius: 4px;
+		font-size: 0.9rem;
+		cursor: pointer;
+		transition: all 0.3s;
+	}
+
+	.filter-btn.active {
+		background-color: #4a90e2;
+		color: white;
+		border: 1px solid #4a90e2;
+	}
+
+	.filter-btn.inactive {
+		background-color: transparent;
+		color: #ffffff;
+		border: 1px solid #2a3040;
+	}
+
+	.filter-btn.inactive:hover {
+		border-color: #4a90e2;
+		color: #4a90e2;
+	}
+
+	.create-article-btn {
+		background-color: #28a745;
+		color: white;
+		border: none;
+		padding: 0.5rem 1.5rem;
+		border-radius: 4px;
+		cursor: pointer;
+		font-size: 0.9rem;
+		transition: background-color 0.3s;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.create-article-btn:hover {
+		background-color: #218838;
+	}
+
+	/* Articles Grid */
+	.articles-section {
+		padding: 2rem 1rem;
+	}
+
+	.articles-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.article-card {
+		background-color: #1a1f2e;
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		transition: transform 0.3s;
+	}
+
+	.article-card:hover {
+		transform: translateY(-5px);
+	}
+
+	.article-image {
+		height: 180px;
+		background-size: cover;
+		background-position: center;
+		position: relative;
+	}
+
+	.article-image::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+	}
+
+	.article-category {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background-color: #4a90e2;
+		color: white;
+		padding: 0.3rem 0.8rem;
+		border-radius: 15px;
+		font-size: 0.8rem;
+		z-index: 1;
+	}
+
+	.article-content {
+		padding: 1.2rem;
+	}
+
+	.article-title {
+		font-size: 1.1rem;
+		margin-bottom: 0.5rem;
+		font-weight: 600;
+		color: white;
+	}
+
+	.article-description {
+		color: #b0b7c3;
+		font-size: 0.9rem;
+		margin-bottom: 1rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.read-more {
+		display: inline-block;
+		background-color: #4a90e2;
+		color: white;
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 4px;
+		text-decoration: none;
+		font-size: 0.9rem;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.read-more:hover {
+		background-color: #3a7bc8;
+	}
+
+	/* Modal Styles */
+	.modal {
+		display: none;
+		position: fixed;
+		z-index: 2000;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.8);
+		backdrop-filter: blur(5px);
+	}
+
+	.modal.active {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.modal-content {
+		background-color: #1a1f2e;
+		border-radius: 12px;
+		width: 95%;
+		max-width: 800px;
+		max-height: 90vh;
+		overflow-y: auto;
+		position: relative;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+	}
+
+	.modal-header {
+		background-color: #4a90e2;
+		padding: 1.5rem;
+		border-radius: 12px 12px 0 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.modal-title {
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: white;
+	}
+
+	.close-btn {
+		background: none;
+		border: none;
+		color: white;
+		font-size: 1.5rem;
+		cursor: pointer;
+		padding: 0.5rem;
+		border-radius: 4px;
+		transition: background-color 0.3s;
+	}
+
+	.close-btn:hover {
+		background-color: rgba(255, 255, 255, 0.2);
+	}
+
+	.modal-body {
+		padding: 2rem;
+	}
+
+	/* Form Styles */
+	.form-group {
+		margin-bottom: 1.5rem;
+	}
+
+	.form-label {
+		display: block;
+		margin-bottom: 0.5rem;
+		font-weight: 500;
+		color: #ffffff;
+	}
+
+	.form-input {
+		width: 100%;
+		padding: 0.8rem;
+		border: 1px solid #2a3040;
+		border-radius: 6px;
+		background-color: rgba(255, 255, 255, 0.1);
+		color: white;
+		font-size: 0.9rem;
+		transition: border-color 0.3s;
+	}
+
+	.form-input:focus {
+		outline: none;
+		border-color: #4a90e2;
+		background-color: rgba(255, 255, 255, 0.15);
+	}
+
+	.form-textarea {
+		min-height: 150px;
+		resize: vertical;
+		font-family: inherit;
+	}
+
+	/* Image Upload Styles */
+	.image-upload-area {
+		border: 2px dashed #2a3040;
+		border-radius: 8px;
+		padding: 2rem;
+		text-align: center;
+		transition: border-color 0.3s;
+		cursor: pointer;
+	}
+
+	.image-upload-area:hover {
+		border-color: #4a90e2;
+	}
+
+	.upload-icon {
+		font-size: 3rem;
+		color: #b0b7c3;
+		margin-bottom: 1rem;
+	}
+
+	.upload-text {
+		color: #b0b7c3;
+		margin-bottom: 0.5rem;
+	}
+
+	.file-input {
+		display: none;
+	}
+
+	.image-preview {
+		margin-top: 1rem;
+		display: none;
+	}
+
+	.image-preview.active {
+		display: block;
+	}
+
+	.preview-image {
+		max-width: 100%;
+		max-height: 200px;
+		border-radius: 8px;
+		object-fit: cover;
+	}
+
+	.image-preview-container {
+		position: relative;
+		display: inline-block;
+	}
+
+	.remove-image-btn {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		background-color: #dc3545;
+		color: white;
+		border: none;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.8rem;
+		transition: background-color 0.3s;
+		z-index: 10;
+	}
+
+	.remove-image-btn:hover {
+		background-color: #c82333;
+	}
+
+	/* Button Styles */
+	.form-buttons {
+		display: flex;
+		gap: 1rem;
+		justify-content: flex-end;
+		margin-top: 2rem;
+	}
+
+	.btn {
+		padding: 0.8rem 1.5rem;
+		border: none;
+		border-radius: 6px;
+		cursor: pointer;
+		font-size: 0.9rem;
+		transition: background-color 0.3s;
+	}
+
+	.btn-primary {
+		background-color: #4a90e2;
+		color: white;
+	}
+
+	.btn-primary:hover {
+		background-color: #3a7bc8;
+	}
+
+	.btn-secondary {
+		background-color: #2a3040;
+		color: #ffffff;
+	}
+
+	.btn-secondary:hover {
+		background-color: #3a4050;
+	}
+
+	/* Article Detail Styles */
+	.detail-image-container {
+		width: 100%;
+		margin-bottom: 1.5rem;
+	}
+
+	.detail-image {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+		border-radius: 8px;
+	}
+
+	.detail-meta {
+		display: flex;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.detail-category {
+		background-color: #4a90e2;
+		color: white;
+		padding: 0.3rem 0.8rem;
+		border-radius: 15px;
+		font-size: 0.8rem;
+		font-weight: 500;
+	}
+
+	.detail-date {
+		color: #b0b7c3;
+		font-size: 0.9rem;
+	}
+
+	.detail-description {
+		color: #ffffff;
+		line-height: 1.8;
+		font-size: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	.detail-actions {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.detail-actions .btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	/* Comments Section Styles */
+	.comments-section {
+		margin-top: 3rem;
+	}
+
+	.comments-section h3 {
+		color: white;
+		margin-bottom: 1.5rem;
+		font-size: 1.2rem;
+	}
+
+	.comment-form {
+		background-color: #1a1f2e;
+		padding: 1.5rem;
+		border-radius: 8px;
+		margin-bottom: 2rem;
+	}
+
+	.rating-input {
+		display: flex;
+		gap: 0.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.star-btn {
+		background: none;
+		border: none;
+		color: #b0b7c3;
+		font-size: 1.2rem;
+		cursor: pointer;
+		transition: color 0.3s;
+	}
+
+	.star-btn.active {
+		color: #ffd700;
+	}
+
+	.comment-input-container {
+		position: relative;
+		margin-bottom: 1rem;
+	}
+
+	.comment-input {
+		width: 100%;
+		padding: 1rem;
+		border: 1px solid #2a3040;
+		border-radius: 6px;
+		background-color: rgba(255, 255, 255, 0.1);
+		color: white;
+		font-size: 0.9rem;
+		min-height: 100px;
+		resize: vertical;
+		font-family: inherit;
+	}
+
+	.comment-input:focus {
+		outline: none;
+		border-color: #4a90e2;
+		background-color: rgba(255, 255, 255, 0.15);
+	}
+
+	.char-count {
+		position: absolute;
+		bottom: 0.5rem;
+		right: 0.5rem;
+		color: #b0b7c3;
+		font-size: 0.8rem;
+	}
+
+	.char-count.error {
+		color: #dc3545;
+	}
+
+	.submit-comment-btn {
+		background-color: #4a90e2;
+		color: white;
+		border: none;
+		padding: 0.8rem 1.5rem;
+		border-radius: 6px;
+		cursor: pointer;
+		font-size: 0.9rem;
+		transition: background-color 0.3s;
+	}
+
+	.submit-comment-btn:hover:not(:disabled) {
+		background-color: #3a7bc8;
+	}
+
+	.submit-comment-btn:disabled {
+		background-color: #2a3040;
+		cursor: not-allowed;
+	}
+
+	.comments-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.comment {
+		background-color: #1a1f2e;
+		padding: 1.5rem;
+		border-radius: 8px;
+	}
+
+	.comment-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1rem;
+	}
+
+	.comment-user {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.user-avatar {
+		width: 40px;
+		height: 40px;
+		background-color: #4a90e2;
+		color: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 600;
+	}
+
+	.user-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+
+	.username {
+		color: white;
+		font-weight: 500;
+	}
+
+	.comment-meta {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.rating {
+		display: flex;
+		gap: 0.2rem;
+	}
+
+	.rating i {
+		color: #b0b7c3;
+		font-size: 0.8rem;
+	}
+
+	.rating i.active {
+		color: #ffd700;
+	}
+
+	.timestamp {
+		color: #b0b7c3;
+		font-size: 0.8rem;
+	}
+
+	.like-btn {
+		background: none;
+		border: none;
+		color: #b0b7c3;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+		transition: color 0.3s;
+	}
+
+	.like-btn.active {
+		color: #dc3545;
+	}
+
+	.like-btn:hover {
+		color: #dc3545;
+	}
+
+	.comment-content {
+		color: #ffffff;
+		line-height: 1.6;
+		font-size: 0.9rem;
+	}
+
+	.read-more-btn {
+		background: none;
+		border: none;
+		color: #4a90e2;
+		cursor: pointer;
+		padding: 0;
+		margin-top: 0.5rem;
+		font-size: 0.9rem;
+	}
+
+	.read-more-btn:hover {
+		text-decoration: underline;
+	}
+
+	/* Responsive Styles */
+	@media (max-width: 768px) {
+		.container {
+			padding: 1rem;
+		}
+
+		.search-section {
+			padding: 1rem;
+		}
+
+		.filter-buttons {
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.articles-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.modal-content {
+			width: 100%;
+			height: 100%;
+			max-height: none;
+			border-radius: 0;
+		}
+
+		.modal-header {
+			border-radius: 0;
+		}
+
+		.detail-actions {
+			flex-direction: column;
+		}
+
+		.detail-actions .btn {
+			width: 100%;
+			justify-content: center;
+		}
+	}
+</style>
