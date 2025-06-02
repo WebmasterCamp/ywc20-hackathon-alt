@@ -455,10 +455,10 @@
   <section class="relative h-96 flex items-center justify-center bg-cover bg-center" style="background-image: url('/placeholder.svg?height=400&width=800');">
     <img class="absolute inset-0 bg-black" src="back.png">
     <div class="relative text-center z-10">
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">คำพูดเซียบชวนมากดูปุ่ม</h1>
-      <h2 class="text-4xl md:text-5xl font-bold mb-8">คำพูดเซียบชวนมากดูปุ่ม</h2>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">ท้องฟ้าที่เต็มไปด้วยดาว</h1>
+      <h2 class="text-4xl md:text-5xl font-bold mb-8">มันอยู่ไหนกันนะ?</h2>
       <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition-colors">
-        ปุ่มไปพิงค์ขันแนบ
+        สถานที่ดูดาว
       </button>
     </div>
   </section>
