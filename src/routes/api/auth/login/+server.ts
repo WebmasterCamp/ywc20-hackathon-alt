@@ -1,33 +1,31 @@
-import { json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
+import type { RequestHandler } from '@sveltejs/kit';
 
-const thaiEmailRegex = /[a-zA-Z\u0E00-\u0E7F]+@[a-zA-Z\u0E00-\u0E7F]/;
+export const POST: RequestHandler = async ({ request, cookies }) => {
+  const { email, password } = await request.json();
 
-export const POST: RequestHandler = async ({ request }) => {
-    const { email, password } = await request.json();
+  if (!email || !password) {
+    return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
+  }
 
-    // Thai email validation
-    if (!email || !thaiEmailRegex.test(email)) {
-        return json({ 
-            success: false,
-            error: 'Please enter a valid Thai email address (example@domain.ไทย)'
-        }, { status: 400 });
-    }
+  // Mockup login - accept any email and password
+  // Set cookies
+  cookies.set('userEmail', email, {
+    path: '/',
+    httpOnly: true,
+    sameSite: 'strict',
+    maxAge: 60 * 60 * 24 * 7 // 1 week
+  });
 
-    // Extract username from email (everything before @)
-    const username = email.split('@')[0];
+  cookies.set('username', email.split('@')[0], { // Use part before @ as username
+    path: '/',
+    httpOnly: true,
+    sameSite: 'strict',
+    maxAge: 60 * 60 * 24 * 7 // 1 week
+  });
 
-    // For demo purposes, we'll accept any login with valid Thai email
-    if (email && password) {
-        return json({ 
-            success: true,
-            email: email,
-            username: username
-        });
-    }
-
-    return json({ 
-        success: false,
-        error: 'Invalid credentials'
-    }, { status: 401 });
+  return new Response(JSON.stringify({ 
+    success: true,
+    email: email,
+    username: email.split('@')[0]
+  }), { status: 200 });
 }; 

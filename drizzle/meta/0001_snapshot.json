@@ -1,12 +1,11 @@
 {
-  "id": "5672c61d-8388-4c67-b766-641017af7a0e",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "44974e01-05dd-4eaa-b533-ba314f0d0f84",
+  "prevId": "5672c61d-8388-4c67-b766-641017af7a0e",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.Category": {
-      "name": "Category",
-
+    "public.categories": {
+      "name": "categories",
       "schema": "",
       "columns": {
         "id": {
@@ -26,74 +25,131 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "app_read": {
-          "name": "app_read",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "app_write": {
-          "name": "app_write",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "creationdate": {
-          "name": "creationdate",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "isdisable": {
-          "name": "isdisable",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "ishidden": {
-          "name": "ishidden",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "totaltopics": {
-          "name": "totaltopics",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "default": 0
-        },
-        "createby": {
-          "name": "createby",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
         }
       },
       "indexes": {
-        "name_idx": {
-          "name": "name_idx",
+        "categories_index_0": {
+          "name": "categories_index_0",
           "columns": [
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops"
+            },
             {
               "expression": "name",
               "isExpression": false,
               "asc": true,
-              "nulls": "last"
+              "nulls": "last",
+              "opclass": "text_ops"
             }
           ],
-          "isUnique": true,
+          "isUnique": false,
           "concurrently": false,
           "method": "btree",
           "with": {}
         }
       },
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "categories_unique_name_id": {
+          "name": "categories_unique_name_id",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "name"
+          ]
+        },
+        "categories_name_key": {
+          "name": "categories_name_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.hotel": {
+      "name": "hotel",
+      "schema": "",
+      "columns": {
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maplocation": {
+          "name": "maplocation",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provice": {
+          "name": "provice",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price": {
+          "name": "price",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "darkindex": {
+          "name": "darkindex",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "hotel_type_fk": {
+          "name": "hotel_type_fk",
+          "tableFrom": "hotel",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "type"
+          ],
+          "columnsTo": [
+            "name"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
@@ -159,96 +215,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.Post": {
-      "name": "Post",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createby": {
-          "name": "createby",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "creation_date": {
-          "name": "creation_date",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "last_edited": {
-          "name": "last_edited",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "app_read": {
-          "name": "app_read",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "app_write": {
-          "name": "app_write",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "isdisable": {
-          "name": "isdisable",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "ishidden": {
-          "name": "ishidden",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "maplocation": {
-          "name": "maplocation",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "categoryId": {
-          "name": "categoryId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
         }
       },
       "indexes": {},
@@ -431,21 +397,6 @@
         }
       },
       "indexes": {
-        "username_idx": {
-          "name": "username_idx",
-          "columns": [
-            {
-              "expression": "username",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "email_idx": {
           "name": "email_idx",
           "columns": [
@@ -453,7 +404,24 @@
               "expression": "email",
               "isExpression": false,
               "asc": true,
-              "nulls": "last"
+              "nulls": "last",
+              "opclass": "text_ops"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "username_idx": {
+          "name": "username_idx",
+          "columns": [
+            {
+              "expression": "username",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops"
             }
           ],
           "isUnique": true,
@@ -467,7 +435,6 @@
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
-
       "isRLSEnabled": false
     }
   },
@@ -480,7 +447,6 @@
   "_meta": {
     "columns": {},
     "schemas": {},
-
     "tables": {}
   }
 }

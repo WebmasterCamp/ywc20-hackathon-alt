@@ -1,16 +1,13 @@
 <script>
   import { onMount } from 'svelte';
   import Navbar from '../components/navbar.svelte';
-  import { Card,Button } from "flowbite-svelte";
-  import { ArrowRightOutline } from "flowbite-svelte-icons";
-  let vCard = false;
-  let searchQuery = $state('');
-
+  import Modalask from '../components/modalask.svelte';
   /**
 	 * @type {import("leaflet").Map | import("leaflet").LayerGroup<any>}
 	 */
   let map;
   let locations = [];
+
 
   onMount(async () => {
     const res = await fetch('http://localhost:5173/api/getalocation');
@@ -90,22 +87,12 @@
 </script>
 
 
-<style>
-  /* #map {
-    height: 25vh;
-    width: 80vh;
-  } */
-</style>
 
-<!-- <h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<div  id="map"></div> -->
 
 <Navbar />
-<div class="min-h-screen from-[#0D0D0D] to-[#171616] bg-gradient-to-b text-white">
 
-
+<div class="min-h-screen bg-gray-900 text-white">
   <!-- Hero Section -->
   <section class="relative h-96 flex items-center justify-center bg-cover bg-center" style="background-image: url('/placeholder.svg?height=400&width=800');">
     <img class="absolute inset-0 bg-black" src="back.png">
@@ -160,3 +147,4 @@
     </div>
   </section>
 </div>
+<Modalask />
