@@ -29,7 +29,7 @@
         ]
       },
       {
-        question: "2.สไตล์การเที่ยวของคุณเป็นแบบไหน",
+        question: "สไตล์การเที่ยวของคุณเป็นแบบไหน",
         answers: [
           { value: "adventure", text: "สายลุย เน้นกิจกรรม" },
           { value: "chill", text: "สายชิล เน้นสะดวกสบาย" },
@@ -79,6 +79,7 @@
         <!-- Question Card -->
         <div class="bg-white rounded-[20px] p-8 shadow-2xl">
           <h2 class="text-3xl font-bold mb-4 font-['Noto_Sans_Thai'] text-center">
+            แบบสอบถามความสนใจด้านการดูดาว <br>
             คำถามที่ {currentQuestion + 1} จาก {questions.length}
           </h2>
           <div class="my-[26px]">

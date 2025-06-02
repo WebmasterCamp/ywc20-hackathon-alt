@@ -1,8 +1,8 @@
-<footer class="footer">
+<footer class="footer mt-96">
 	<div class="footer-container">
 		<div class="footer-section">
 			<div class="footer-logo">
-				<div class="logo-icon">S</div>
+				<img class="logo-icon" src="Stargaze_logo.png">
 				<span>ดูดาว</span>
 			</div>
 			<p class="footer-description">
@@ -88,7 +88,6 @@
 	.logo-icon {
 		width: 24px;
 		height: 24px;
-		background-color: white;
 		border-radius: 50%;
 	}
 
@@ -610,7 +609,7 @@
 	.footer {
 		background-color: #0a0d14;
 		padding: 4rem 1rem 0;
-		margin-top: 4rem;
+		margin-top: -2rem;
 	}
 
 	.footer-container {
@@ -639,7 +638,6 @@
 	.footer-logo .logo-icon {
 		width: 32px;
 		height: 32px;
-		background-color: #4a90e2;
 		border-radius: 50%;
 		display: flex;
 		align-items: center;

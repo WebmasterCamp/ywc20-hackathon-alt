@@ -1,7 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { writable, derived } from 'svelte/store';
-  
+    let { data } = $props();
+  import Navbar from '../../components/navbar.svelte';
     // Types
     interface MarkerPosition {
       x: number;
@@ -358,22 +359,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   </svelte:head>
   
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">
-      <div class="logo-icon"></div>
-      <span>ไลก์</span>
-    </div>
-    <nav>
-      <ul class="nav-menu">
-        <li><a href="#">ดื่มนม</a></li>
-        <li><a href="#">ดื่มนม</a></li>
-        <li><a href="#">ดื่มนม</a></li>
-        <li><a href="#">ดื่มนม</a></li>
-      </ul>
-    </nav>
-    <button class="login-btn">ล็อคอิน/สมัครสมาชิก</button>
-  </header>
+<Navbar data={data} />
   
   <!-- Hero Section -->
   <section class="hero">
@@ -386,8 +372,8 @@
         <div class="form-group">
           <select bind:value={selectedProvince}>
             <option value="">จังหวัด</option>
-            <option value="bangkok">กรุงเทพมหานคร</option>
-            <option value="chiangmai">เชียงใหม่</option>
+            <option value="">กรุงเทพมหานคร</option>
+            <option value="">เชียงใหม่</option>
             <option value="phuket">ภูเก็ต</option>
             <option value="chonburi">ชลบุรี</option>
             <option value="krabi">กระบี่</option>

@@ -34,7 +34,7 @@
 
 <header class="header">
   <div class="logo">
-      <div class="logo-icon"></div>
+      <img class="logo-icon" src="/Stargaze_logo.png">
       <span>ไลก์</span>
   </div>
 
